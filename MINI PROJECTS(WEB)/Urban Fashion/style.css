@@ -1,0 +1,109 @@
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        
+        .banner {
+            width: 100%;
+            height: 100vh;
+            background-image: url(background.png);
+            background-size: cover;
+        }
+        
+        .logo {
+            width: 210px;
+            cursor: pointer;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            width: 85%;
+            align-items: center;
+            padding: 35px 0;
+            margin: 0 10px 0;
+        }
+        
+        .navbar ul li {
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .navbar ul li a {
+            color: rgb(49, 49, 49);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        
+        .navbar ul li::after {
+            color: blueviolet;
+            content: '';
+            height: 3px;
+            width: 0;
+            background: rgb(188, 42, 255);
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            transition: 0.5s;
+        }
+        
+        .navbar ul li:hover::after {
+            width: 100%;
+        }
+        
+        .navbar ul li a:hover {
+            color: rgb(255, 30, 225);
+        }
+        
+        .content h1 {
+            margin-top: 24px;
+            margin-bottom: 15px;
+            font-size: 50px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        .content p {
+            color: rgb(90, 90, 90);
+        }
+        
+        .content {
+            margin-top: 15%;
+            margin-left: 13%;
+        }
+        
+        .image {
+            position: absolute;
+            bottom: 0;
+            height: 80%;
+            right: 5%;
+        }
+        
+        .content .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #87adfa, #f157ff);
+            border-radius: 6px;
+            box-sizing: border-box;
+            padding: 10px 20px;
+            color: #ffff;
+            text-decoration: none;
+            box-shadow: 3px 3px 22px rgba(212, 39, 255, 0.75);
+        }
+        
+        .social {
+            transform: rotate(-90deg);
+            position: absolute;
+            left: -90px;
+            bottom: 180px;
+        }
+        
+        .social a {
+            text-decoration: none;
+            color: #636363;
+            padding-right: 20px;
+            font-size: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
