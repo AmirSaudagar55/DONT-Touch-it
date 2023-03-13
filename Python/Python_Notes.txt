@@ -1,0 +1,502 @@
+Note : More informations and methods is avilable in documentation of python sepcially for built-in modules to enhance utility.
+
+Tuple:
+	1) It is immutable(eg. tuple, string) data type in python i.e it cannot be modify once declared. If you want to initialize a tupple with single element
+	   you must have to give comma after it. eg tup = (2,)
+	2) tup = (1,2,3,"Hi",True)
+	3) Slicing can be done and it results in new tupple.
+	   tup1 = tup[1:3]  #-->tup1 = (2,)
+	   tup1 = tup[2:] #-->end of slicing will be len(tup)(automatically taken by interpreter).  --> tup1 = (3,"Hi",True)
+           tup1 = tup[:4] #-->Start of slicing will be 0 (automatically taken by interpreter).
+	4) Operations:
+		i) Changes in tuple cannot be done unless or until it is converted into mutable data structure.
+			tup = (1,2,3,44,55,12,13,"hello",True,False)
+			listTemp = list(tup)
+			listTemp.append("hi")
+			listTemp.pop(3) #--> 3 is index value
+			listTemp[0]= "Amir"
+			print(list)  #--->["Amir",2,3,55,12,13,"hello",True,False,"hi"]
+			tup = tuple(listTemp)
+			print(tup)  #-->("Amir",2,3,55,12,13,"hello",True,False,"hi")
+
+		ii) count(element): Counts the number of elements in a tuple.
+			tup = ("Amir",3,3,3,4,5,6,17,18,17)
+			print(tup.count(3))   #-->3
+
+		iii) index(element,start,end): Gives the index value of element(first occurence) in a tuple.
+		     If value does not found it will raise an value error.
+			print(tup.index(4)) #-->4
+			print(tup.index(17,3,len(tup)-1)) #-->7
+
+String Formatting in python:
+	1) String is immutable data type in python.
+	2) String can be formatted using format() method. But this make code bulky.
+		eg .
+		letter = ("Hi, my name is {}, and I am from {}")
+		name = "Amir"
+		country = "India"
+
+		letter.format(name,country)
+		print(letter) #--> Hi, my name is Amir, and I am from India
+
+		#This can also be done in order to reduce the chances of misplacing
+		letter = ("Hi, my name is {0}, and I am from {1}")
+		letter.format(name,country)
+
+	3) In order make code convenient f strings are use.
+		letter = f"Hi, my name is {name}, and I am form {country}"
+		print(letter) #---> Hi, my name is Amir, and I am from India
+		
+		price = 2.099999
+		txt = f"For only {price:.2f} dollars !"  #---->For only 2.10 dollars !
+		
+		print(f"{2*30}") #--->60
+
+	4) If in case you want to display {} then use following syntax:
+		print(f"Hi, my name is {{name}}, and I am from {{country}}")
+
+
+Docstring , PEP , The Zen of python : 
+	1)Docstring in python is used for description of function. These are given just after the declaration of function.
+	2)Docstring are not comments. Python consider docstring while interpreting.
+	def square(x):
+		'''This function is used for squaring number.'''
+		print(square.__doc__)
+		return x*x
+
+	PEP : Python Enhancement Proposal. It is a documentation which provide best practices for how to write a python code.
+
+	The Zen of Python: import this -->Gives poem by Tim Peters 
+
+else in Loops : 
+	1) In python, You can also use else with loops.
+	2) else will only execute when loop complete successfully.(i.e. without any break statement)
+	eg 
+	for i in range(3):
+		print(i)
+	else:
+		print(i not found)
+	--->0
+	    1
+	    2
+	    i not found
+
+	for i in []:   #empty list
+		print(i)
+	else:
+		print(i not found)
+	--->i not found
+	
+	i = 0
+	while(i<3):
+		print(i)
+		i+=1
+	else:
+		print(i not found)
+	--->0
+	    1
+	    2
+	    i not found
+
+
+Match Case :
+	Note: This control statement is available in updated python version i.e 3.10
+	import os
+	os.system("python --version")
+
+	1) Match case is similar to switch case.
+	2) There is no need to give break statement after each case in python. Automatically, interpreter matches the case and execute only first match case only.
+	3) Default case in gives by '_' eg. case _:
+	4) You can also specify if statement after each case. eg case 4 if(x%2==0):
+								 case 4 if(x%3==0):
+	x = int(input("Enter the value of x : "))
+	match(x):
+		case 1 : 
+			print("Case 1 is printed.")
+
+		case 2 : 
+			print("Case 2 is printed.")
+
+		case 3 : 
+			print("Case 3 is printed.")
+
+		case 4 if(x%2==0): 
+			print("Case 4 with if statement.")
+
+		case _ if(x>10): 
+			print("x is greater than 10")
+
+		case _ if(x>5): 
+			print("x is greater than 5")
+
+		case _ : print(x)
+
+	colour = (25,56,200)
+	match colour:
+		case r,g,b:
+			print("No alpha.")
+		case r,g,b,alpha:
+			print(f"Alpha is {alpha}")
+
+	def sample(point):
+		match point:
+			case (0,0):
+				print("Origin")
+			case (0,y):
+				print(f"Y = {y}")
+			case(x,0):
+				print(f"X = {x}")
+			case(x,y):
+				print(f"X  = {x}, Y = {y}")
+			case _:
+				raise ValueError("Not a point")
+	sample(point = (3,4))
+
+
+Sets:
+	1)Sets are ---- data-types.
+	2)Sets are  the collection of distinct objects.
+	s1 = {1,2,3,4,5}
+	s2 = {3,6,7}
+	
+	Operations:
+	i)union() : s3 = s1.union(s2)
+	ii)intersection() : s3 = s1.intersection(s2) and s1.intersection_update(s2) --->keeps common elements in set s1 only
+	iii)difference() : s3 = s1.difference(s2) and s1.difference_update(s2) --->Update s1
+	iv)symmetric_difference() : s3 = s1.symmetric_difference(s2) and s1.symmetric_difference_update(s2)-->Elements that are not similar to both the sets
+	v)isdisjoint() : s1.isdisjoint(s2) -->Returns true if both the sets different from each other.
+	vi) issuperset(), issubset()
+	vii) remove(), discard() : These are used to remove element from set. eg s1.remove(2), s1.discard(2). remove() methods shows error if given element is not in a set.
+	                           discard() does not shows such error.
+	viii) pop() : removes or pop the last element from set. But we dont know which will be the last element as set is unordered. eg s1.pop(3)
+	ix) del keyword : It deletes the entire set. eg del s1
+
+Dictionary:
+	1)Dictionary is mutable data type.
+	2)Elements ordered and stored in key-value pairs.
+	3)We can access value using key:
+		dic[key]   #--->Will raise an error if there is no such element.
+		dic.get(key) #--->Does not raise an error.
+	4)dic.keys() --->Gives all keys
+		for i in dic.keys():
+	5)dic.items() ---> Gives an pairs in key, value form represented using each pair as tuple.
+		for key,value in dic.items():
+	
+	Operations:
+	1) update() : e1 = {1:'a', 2:'b', 3:'c', 4:'d'}
+		      e2 = {3:'e', 4:'f', 5:'g'}
+		      e1.update(e2) ---> e1 ={1,2,3,3,4,5}
+
+	2) clear() : makes dictionary empty.
+		     eg. dic.clear() ----> dic = {}
+
+	3) pop(key) : Removes an key-value pair
+
+	4) popitem() : Removes last key-value pair
+
+	5) del : deletes the key or whole dictionary
+		eg. del dic
+		    del dic[key]
+
+Exception handling in python:
+	1) It makes the program robust.
+	2) try and except are used for exception handling.
+	eg try:
+		statement1
+	   except:
+		statement2
+	   statements3
+	If statement1 raise an error, control will be given to except block.
+
+	3) We can also specify error type:
+	eg try:
+		statement1
+	   except valueError:
+		statement2
+	   except IndexError:
+		statement3
+	   statement4
+
+	4) You can also use 
+	  except Exception as e:
+		print(e) 
+	 
+finally keyword in python:
+	1) Code under finnaly block always executed.
+	eg. 
+	def fun():
+		
+		try:
+			l = [10,2,3,1]
+			n = int(input("Enter the number : "))
+			print(l[n])
+			return 1
+		except:
+			print("Error occured")
+			return 0
+		finally:
+			print("I always execute")
+
+	print(fun())
+	
+	Output:
+		Enter the number : ahkd
+		Error occured
+		I always execute
+		0
+		
+		Enter the number : 1
+		2
+		I always execute
+		1
+
+Custom errors:
+	1) 'raise' keyword is used to raise custom errors.
+	eg. 
+	n = int(input("Enter number greater than 5 and less than 10 : "))
+	if(a<5 or a>10):
+		raise valueError("Number is not satisfaying required condition")
+
+short-hand if else:
+	1) If if else code block is short and you want to increase readability then use short hand if else
+	eg.
+	a = 10
+	b = 9
+
+	n = 10 if a>b else 20   #---> it means : if (a>b) : 
+							n = 10
+						 else:
+							n = 20
+
+	print("A") if a>b else print("=") if a==b else print("B")
+
+Enumerate() :
+	1) It is used to access both index and value of a list, tuple, etc. during iteration.
+	eg.
+	marks = [10,2,8,99,7,5,2]
+	for index, mark in enumerate(marks):
+		print(mark)
+		if(index == 3):
+			print("Awesome Amir! ")
+	output : 
+	2
+	9
+	8
+	99
+	Awesome!!
+	7
+	6
+	1
+
+	2) We can also specify the starting index in enumerate() function using start = value.
+	eg.
+	marks = [10,2,8,99,7,5,2]
+	for index, mark in enumerate(marks):
+		print(mark)
+		if(index == 3):
+			print("Awesome Amir! ")	
+	output : 
+	2
+	9
+	8
+	Awesome!!
+	99
+	7
+	6
+	1
+
+	
+
+Virtual Environment in python :
+	1) You can create your own virtual environment which will contain different packages than your global environment.
+	Commands : 
+		python -m venv environment_name  -->Creates virtual environment
+
+		---------Activate Virtual Environment-------------------------------------------
+		source env_name/bin/activate --> liux/mac
+		env_name\Scripts\activate.bat -->Windows
+		deactivate -->deactivate virtual environment
+
+		--------Copy names of all packages along with their versions in a file----------
+		pip freeze > requirements.txt
+		
+		---------Install all packages w.r.t. their version from a file------------------
+		pip install -r requiremens.txt
+
+
+Modules in python:
+	1) Importing is process of loading code from module into your current script.
+	eg. import math       #------> math.sqrt(225)
+	eg. from math import sqrt #----> imports spcified function or variable
+	eg. from math import *   #----> imports everything
+	eg. import math as m  #---> m.sqrt(225)
+
+	2) dir() function is used to view all function and variables defined in a module.
+	eg. print(dir(math))
+
+	3) You can also import multiple functions and variables separated by ','.
+	eg. from amir import name, rollNo
+	eg. form amir import name as n, rollNo as r
+
+if __name__ == "__main__" :
+	1) It is commonly used idom to specify whether the script is being run directly or being imported as a module in another program.
+	2) '__name__' is a built-in variable which automatically set to string "__main__" if it is run directly and if it is imported as a module then
+	   '__name__' is set to the name of the module.
+	eg 
+`	In amir.py
+	def welcome():
+		print("Hello from amir.py ")
+	print(__name__)
+	if __name__=="__main__":
+		welcome()
+
+	In main.py
+	import amir
+	amir.welcome()
+
+	---output : ----
+	main #---> as print(__name__) is outside of if __name__ == "__main__" and __name__ is set to name of the module during import.
+`	Hello from amir
+	
+
+	3) If if ' __name__=="__main__" : ' is not there in amir.py then by just adding line 'import amir' all varible and functions(defined and called) 
+	   in main will be executed.
+
+os module:
+	methods:
+	1)mkdir() --> creates directory or folders. you can also use mkdirs()
+	2)getcwd() --> gives path of current working directory
+	3)chdir()   --> change directory
+	eg.
+	import os
+	if(not os.path.exist("data")):
+		os.mkdir("data")
+	
+	for i in range(0, 100):
+		os.mkdir(f"data/Day{i+1}")  #----> creates folders in data as Day1 , Day2, etc.
+	
+	4) rename(source, destination)
+	   eg. os.rename(f"data/Day{i+1}", f"data/Tutorial {i+1}")
+
+	5) listdir() --->gives all folders in directory  --> generally used to view subfolders under folders using for loop
+	   eg. folders = os.listdir("data")
+	       print(folders)
+
+	
+File handling in python :
+	methods:
+	1)open() : It opens file. It takes two argument i.e. file_name and file mode.
+	2)close() : It closes the open file.
+	3)read() : Used to read contents of file. read(value) ----> value => till what position you want to read.
+	4)write() : Used to write content to file.
+	5)create() : Used to create file in cwd.
+	eg.
+	f = open("test1.py",'r')   #-----> to read file it must present there.
+	text = f.read()
+	print(text)
+
+	eg.
+	f = open("test2.py", 'w') #-----> It automatically creates file and open it in write mode. Write mode overwrites the content in file.
+	f.write("Hello")
+	
+	eg.
+	f = open("test3.py",'a') #----> It opens the file in append mode.
+	f.write("Hi")
+	
+	6) You can also use modes like w+,a+,r+ to perform write-read, append-read, read-write like functions.
+	7) You can open file in text mode which is default and can also be done by specifying the 't' eg. 'rt', 'wt', etc. There is also binary mode
+	   which is useful when opening images, audio files, etc. It can be done by specifying the 'b' eg. 'rb', 'wb', etc.
+	8) Use 'with' statement to close file automatically
+		eg.
+		with open("myFile.txt",'a') as f:
+		f.write("Hi, I am Amir")
+
+	9) readline() : Used to read file line by line.
+
+	10) writeline() : Used to write on file line by line.
+		eg.
+		l = ["line1\n", "line2\n", "line3\n"]
+		f.writeline(l)
+		f.close()
+	
+	-------------------------------------------------------------------
+	eg.
+	Data.txt
+	25, 99
+	12 , 98
+	
+	main.py
+	f = open("Data.txt","r")
+	i = 0
+	while True:
+		i += 1
+		line = f. readline()
+		if not line:
+			break
+		
+		m1 = line.split(",")[0]
+		m2 = line.split(",")[1]
+		
+		print(f"Marks of student {i} in maths is : {m1}")
+		print(f"Marks of student {i} in Python is : {m2}")
+
+	f.close()
+
+	------------------------------------------------------------------
+	s = "10, 22, 30 ,40"
+	>>> print(s.split(",")[0])
+	10
+	>>> print(s.split(","))
+	['10', ' 22', ' 30 ', '40']
+	>>> print(s.split(",")[3])
+	40
+	>>> print(s.split(",")[2])
+	30
+	>>> print(s.split(",")[1])
+	22
+	>>> print(s.split(",")[0])
+	10
+
+	11) seek(desired_cursor_position) ---> Places cursor to desired location in file.
+		eg.
+			test.py
+		HelloWorld
+
+		--------------------------
+			main.py 
+		f.seek(5)
+		text = f.read()
+		print(text)
+
+		OUTPUT:
+		orld		
+		
+		
+
+	12) tell()  ---> returns the position of cursor.
+		eg. f. tell()
+
+	13)truncate() ---> truncates file to specific file.	
+		eg.
+		with open("test.txt", 'w') as f:
+			f.write("Hello World")
+			f.truncate(5)
+		---------------------
+			test.txt
+		Hello
+		
+	------------------------------------------------
+
+Lambda Function:
+	1) Lambda function is anonymous function as it does not have any name.
+	   Syntax : lambda arguments : expression
+
+	eg.
+		double = lambda x : x*x   #---> double is a variable 
+		print(double(2))
+
+	2) We can also pass function as an argument to another function.
+	eg.
+		fun1(lambda x : x*x , 5)
+			
+
