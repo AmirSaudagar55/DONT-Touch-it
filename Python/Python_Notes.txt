@@ -1,8 +1,10 @@
-Note : More informations and methods is avilable in documentation of python sepcially for built-in modules to enhance utility.
+Command line utility is remaining.
+
+Note : 1) More informations and methods is avilable in documentation of python sepcially for built-in modules to enhance utility.
+       2) To know about methods available for objects (also data types) use dir(varname).
 
 Tuple:
-	1) It is immutable(eg. tuple, string) data type in python i.e it cannot be modify once declared. If you want to initialize a tupple with single element
-	   you must have to give comma after it. eg tup = (2,)
+	1) It is immutable(eg. tuple, string) data type in python i.e it cannot be modify once declared. If you want to initialize a tupple with single element you must have to give comma after it. eg tup = (2,).
 	2) tup = (1,2,3,"Hi",True)
 	3) Slicing can be done and it results in new tupple.
 	   tup1 = tup[1:3]  #-->tup1 = (2,)
@@ -221,7 +223,7 @@ Exception handling in python:
 	  except Exception as e:
 		print(e) 
 	 
-finally keyword in python:
+'finally' keyword in python:
 	1) Code under finnaly block always executed.
 	eg. 
 	def fun():
@@ -498,5 +500,737 @@ Lambda Function:
 	2) We can also pass function as an argument to another function.
 	eg.
 		fun1(lambda x : x*x , 5)
-			
 
+			
+Map, Filter and Reduce function in python :
+	Note : Function which take function as a parameter are knows as higher order function.
+
+	1) map(operation_funct, sequence) ---> perform operation on each element of a sequence and return object of resultant sequence.
+		eg.
+		l = [1, 10, 12,13,14]
+		res = list(map(lambda x : x*x, l))
+		print(res) #-----------------> [1,100,144,169,196]
+
+	2) filter(predicate, sequence) ----> Filter out the sequence depends on the provided condition .
+		eg.
+		l = [2,22,10,13,12]
+		def filter_function(a):
+			return a>2
+		res = list(filter(filter_function, l))
+		print(res) #---------------------> [22,10,13,12]
+
+	3) reduce(function, sequence) -------> It applies the function to 1st element and 2nd element and then result and 3rd element and so on.It returns the final value.
+		eg.
+		l = [2,1,3,1,4]
+		res = reduce(lambda x,y : x+y, l)
+		print(res) #------------>11
+
+
+'is' vs '==' :
+	1) is : It checks whether the location of elements is same or not.
+	2) == : It checks whether the value of element is same or not.
+
+	eg.
+	A)
+		Note : Here python allocates the same location of memory for value '2' if any variables shares the same value. They all refers to same location. Same case is for Strings.
+		a = 2
+		b = 2
+		print(a is b) ---> true
+		print(a == b) ---> true
+	B)
+		a = [10, 9, 8, 7]
+		b = [10, 9, 8 ,7]
+		print(a is b)  ---> false
+		print(a == b)  ---> true
+	
+	C)
+		a = 3
+		b = 4
+		print(a is b)  ---> false
+		print(a == b)  ---> false
+
+
+Local and Global variable :
+	1) Local variables can be access in thier scope only.
+	   eg.
+		def func():
+			a =10
+		print(a)  #---------> It will raise an error because a is local to function func() and it can be access in func() only not outside of it's scope.
+	2) Global variables can be access through whole program. In order to change value of global varible => 'global' keyword is used.
+	3) 'global' keyword tells to does not make new local varible with same name as global variable.
+	eg.
+		a = 0
+		def func():
+			global a 
+			a = 10
+		print(a)
+
+Decorators : 
+	1) Decorator is used to modify functions. It take function as an argument and return modified function.
+	eg.
+		def greet(fx):
+			def mfx():
+				print("Good Morning Sir")
+				fx()
+				print("Thank You and Have a Nice Day")
+			return mfx
+	
+		@greet
+		def hello():
+			print("Hello World")
+		
+		hello()
+		
+		OUTPUT:
+		Good Morningg Sir
+		Hello World
+		Thank You and Have a Nice Day
+
+
+                ---------------------If function have arguments--------------------------------------------------------
+		def greet(fx):
+
+			def mfx(*args, **kwargs):                 #------> *args => accept arguments as a tuple  **kwargs => accept arguments as a dictionary
+				print("Good Morning Sir")
+				fx(*args, **kwargs)
+				print("Thank You and Have a Nice Day")
+
+			return mfx
+	
+		@greet
+		def add(a,b):
+			print(f"Sum : {a+b}")
+		
+		add(10,20)		
+
+
+		OUTPUT:
+		Good Morningg Sir
+		Sum : 30
+		Thank You and Have a Nice Day
+
+	2) Use of Decorator : One common use of decorators is to add logging to a function.
+
+
+
+
+Object Oriented Programming (OOP) in python:
+	A) Basic Syntax of class and object creation:
+		1)  Classes are like template or blue-print of object.
+		eg.
+			class Student:
+				name
+				rollNo
+			s1 = Student()
+			s1.name = "Amir"
+			s1.rollNo = 16
+
+		2) 'self' keyword is used to use varibel and methods for current instance only.
+		    eg.
+			class Student:
+				name
+				rollNo
+				
+				def display(self):
+					print(f"Name : {self.name} and Roll No. : {self.rollNo} \n")
+
+			s1 = Student()
+			s1.name = "Amir"
+			s1.rollNo = 16
+			s1.display()
+
+	B) Constructor :
+		1) Constructor is special member function whoese name is same as the class name and it inkove automatically upon creation of object.
+		2) It is used to create and intialized object of a class.
+		2) Types of constructor :
+						i) Default Constructor
+						ii) Parameterized Constructor
+						iii) Copy Constructor
+		eg.
+			class Student:
+				def __init__(self):
+					self.name = "Amir"
+					self.rollNo = 16
+
+				def display(self):
+					print(f"Name : {self.name} and Roll No. : {self.rollNo}")
+
+			s1 = Student()
+			s1.display()
+
+
+			class Student:
+				def __init__(self,name,r):
+					self.name = name
+					self.rollNo = r
+
+				def display(self):
+					print(f"Name : {self.name} and Roll No. : {self.rollNo}")
+
+			s1 = Student("Amir",16)
+			s1.display()
+
+
+	C) Getter and Setter :
+		1) i) We use getters & setters to add validation logic around getting and setting a value.
+		   ii) To avoid direct access of a class field i.e. private variables cannot be accessed directly or modified by external user.
+
+		2) Getters is used to access values of objects properties. It does not take any parameters. Generally, it is implemented using @property decorator.
+		   Setters is used to modify values of objects properties. It can be implemented using @functName.setter
+
+		eg.
+		class Test:
+			def __init__(self,value):
+				self.value = value
+			
+			def display(self):
+				print(f"Value : {self.value}")
+			
+			@property #----------------> Getter
+			def tenValue(self):
+				return 10*self.value
+
+			@tenValue.setter
+			def tenValue(self, newValue):
+				self.value = newValue / 10
+
+		obj = Test(10)
+		obj.tenValue = 1000
+		obj.display()   #---------------> Value : 100 #------------> Actually these are methods but we can use them as property of class
+		
+		print(obj.tenValue) #------------> 1000
+ 
+			
+	D) Inheritance :
+		1) Note: Son has its parents properties plus he has his own propeties.
+		2) This son and parent relationship can be implemented using inheritance.
+		eg.
+		class Employee:
+			def __init__(self, name, id):
+				self.name = name
+				self.id = id
+
+			def display(self):
+				print(f"Name : {self.name}     id : {self.id}")
+
+		class CEO(Employee):     #----------------------> class CEO has all attributes of class Employee and also it has its own method i.e CEO_display
+			def CEO_display(self):
+				print(f"CEO Mr.{self.name}   id : {self.id}")
+
+		e1.Employee("Robo", 123)
+		e1.display()
+		e1.CEO_display() #------------> Will raise an error as object is of parent class
+
+		e2.CEO("Amir Saudagar", 1)
+		CEO.display()
+		CEO.CEO_display()
+
+	E) Access Modifier :
+		1) There is three access modifier : public, protected and private.
+		2) In python there is no concept of access modifier. And by default all data members are public.
+		3) private ---> two underscore before name of the data member.
+		   protected ---> one underscore before name of the data member.
+		eg.
+			self.__value = 10 ---> private and can be access only in class
+			self._value = 10  ---> protected and can be access only in a class and its subclasses
+
+		4) BUT we can indirectly access both private and protected in main. And python uses name mangling.
+		eg.
+			print(objName._ClassName__variableName)
+			print(a.__dir__())
+			print(a._name) #-----> can access protected ones.
+		eg.
+			print(a.__name) #----> raise error
+
+
+	F) Static methods :
+		NOTE : Not all methods in python does not have argument self. Some of them does not have self e.g static method
+
+		1) Static Methods can be called using object and also directly as normal function.
+		eg.
+		class Test:
+			def __init__(self, n, r):
+				self.name = n
+				self.rollNo = r
+				
+			@staticmethod
+			def add(a,b):
+				return a+b
+		
+		t = Test("Amir", 10)
+		print(f"Sum : t.add(10, 20) : {t.add(10,20)}")
+		print(f"Sum : add(10, 20) : {add(10, 20)}")
+
+
+	G) Instance variable and Class variable :
+		eg.
+		class Employee:
+			companyName = "Apple"  #--------> Class variable
+			companySize = 0 #---------------> Class variable
+
+			def __init__(self, name, id):
+				self.name = name  #------> Instance variable
+				self.id = id      #------> Instance variable
+				Employee.companySize += 1
+		
+			def display(self):
+				print(f"Name: {self.name}  ID: {self.id}  CompanyName: {self.companyName} CompanySize: {Employee.companySize}")
+
+
+		e1 = Employee("Amir", 123)
+		e1.name = "NM007"
+		e1.companyName = "Google"
+		e1.display()
+
+		Output: Name: NM007  ID: 123  CompanyName: Apple CompanySize: 1
+
+		----------------------------------------------------------------
+		class Employee:
+			companyName = "Apple"
+			companySize = 0
+
+			def __init__(self, name, id):
+				self.name = name  #------> Instance variable
+				self.id = id      #------> Instance variable
+				Employee.companySize += 1
+		
+			def display(self):
+				print(f"Name: {self.name}  ID: {self.id}  CompanyName: {Employee.companyName} CompanySize: {Employee.companySize}")
+
+
+		e1 = Employee("Amir", 123)
+		e1.name = "NM007"
+		e1.companyName = "Google"
+		e1.display()
+
+		Output : Name: NM007  ID: 123  CompanyName: Apple CompanySize: 1
+
+		1) Interpreter will search for first instance value if it is not available then it takes value of class variable.
+
+
+	H) class Method :
+		1) Class Methods can take class as an argument rather than instance of a class.
+		eg.
+		class Test :
+			companyName = "Apple"
+			def __init__(self):
+				self.name = "Amir"
+
+			def setCompanyName(c,name)
+				c.companyName = name
+		e1 = Test()
+		e1.setCompanyName("Google")
+		print(e1.)
+
+
+			
+			
+			
+		class Test :
+			companyName = "Apple"
+			def __init__(self):
+				self.name = "Amir"
+
+			def setCompanyName(c,name)
+				c.companyName = name
+
+	I) class method as constructor:
+		1) We can also use class methods as a constructor.
+			eg.
+			class Employee:
+				def __init__(self,name,id):
+					self.name = name
+					self.id = id
+
+				@classmethod
+				def splitLog(cs, str):
+					return cs(str.split("-")[0], int(str.split("-")[1]))
+
+				def display(self):
+					print(f"Name : {self.name}  ID : {self.id}")
+			
+			e1 = Employee(Amir, 16)
+			e1.display()
+		
+			e2.Employee.splitLog("Amir-57")
+			e2.display()
+		
+	J) dir(), __dict__ and help:
+		1) dir() is for displaying or knowing which methods are available for an object sepecially data types or data structures eg(list, dictionary, tuples, string,etc.).
+		2) varNameORobjectName.__dict__ returns all the self variables defined in a class of an object along with their values in the form of dictionary.
+		3) help(varNameORobjectName) is a function which is used to return documentation of a object including variable names and methods.
+	        
+		eg.
+		>>> x = [1,2,3,4]
+		>>> print(dir(x))
+		['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+		>>> print(x.__dir__)
+		<built-in method __dir__ of list object at 0x000001DA0B1E7300>
+		>>> print(help(x))
+		Help on list object:
+
+		class list(object)
+		 |  list(iterable=(), /)
+		 |
+		 |  Built-in mutable sequence.
+		 |
+		 |  If no argument is given, the constructor creates a new empty list.
+		 |  The argument must be an iterable if specified.
+		 |
+		 |  Methods defined here:
+		 |
+		 |  __add__(self, value, /)
+		 |      Return self+value.
+		 |
+		 |  __contains__(self, key, /)
+		 |      Return key in self.
+		 |
+		 |  __delitem__(self, key, /)
+		 |      Delete self[key].
+		 |
+		 |  __eq__(self, value, /)
+		 |      Return self==value.
+		 |
+		 |  __ge__(self, value, /)
+		 |      Return self>=value.
+		 |
+		 |  __getattribute__(self, name, /)
+		 |      Return getattr(self, name).
+		-- More  --    #--------------------------> Press Enter to see more
+
+		-----------------------------------------------------------------------------------
+		>>> class Test:
+		...     def __init__(self):
+		...             self.name = "Amir"
+		...             self.rN = 16
+		...     def display(self):
+		...             print(f"Name : {name} and Roll No : {rN}")
+		...
+		>>> t = Test()
+		>>> print(t.__dir__)
+		<built-in method __dir__ of Test object at 0x0000015F6E61A4F0>
+		>>> print(t.__dict__)
+		{'name': 'Amir', 'rN': 16}
+
+		>>> x = [10,20,30]
+		>>> print(x.__dict__)
+		Traceback (most recent call last):
+		  File "<stdin>", line 1, in <module>
+		AttributeError: 'list' object has no attribute '__dict__'
+
+	K) 'super()' keyword :
+		1) super() keyword is used to access variables and methods of parent class.
+		2) It is gennerally used when methods are overriden.
+		3) We can also call constructor of parent class and we can also pass arguments to them.
+		eg.
+		class Test:
+			def __init__(self,name,rn):
+				self.name = name
+				self.rn = rn
+			def display(self):
+				print("This is from parent class.")
+				print(f"Name : {self.name} and rollNO : {self.rn}")
+
+			class Test2(Test):
+				def __init__(self, name, rn, lang):
+					super().__init__(name,rn)
+					self.lang = lang
+				def display(self):
+					super().display()
+					print("This is from child class")
+					
+			t = Test2("Amir",57,"Hindi")
+			t.display()
+
+			This is from parent class.
+			Name : Amir and rollNO : 57
+			This is from child class
+
+	L) Magic methods or dunders :
+		1) This are used to manipulate objects.
+		2) These methods are surrounded by underscores.
+		3) __str__() and __repr__() : Both are used to convert object to string representation.
+		4) __call__() method is used to make object callable like function. eg obj()
+		eg.
+
+		--------------Printing object before using magic methods or dunders-----------------
+		class Employee:
+			def __init__(self,name):
+				self.name = name
+
+		e = Employee("Amir")
+		print(e)
+
+
+		<__main__.Employee object at 0x0000020B05ED0DC0>
+		[Finished in 522ms]
+
+
+		-----------Printing object after using magic methods or dunders----------------
+
+		class Employee:
+			def __init__(self,name):
+				self.name = name
+			
+			def __len__(self):
+				return len(self.name)
+
+			def __str__(self):
+				return f"Employee name is {self.name} from __str__() method."
+
+			def __repr__(self):
+				return f"Employee name is {self.name} from __repr__() method."
+
+			def __call__(self):
+				print("You called object as a function using __call__() method.")
+
+		e = Employee("Amir")
+		print(len(e))
+		print(e)
+		e()
+
+		4
+		Employee name is Amir from __str__() method.
+		You called object as a function using __call__() method.
+		[Finished in 508ms]
+
+		--------If you comment __str__() method then this will be output------
+
+		4
+		Employee name is Amir from __repr__() method.
+		You called object as a function using __call__() method.
+
+
+		5) You can also make changes like print(str(objName)) or print(repr(objName)).
+
+	M) Method Overriding :
+		1) Method Overriding is redefing a function in derived class.
+			eg.
+			class CalculateArea:
+				def __init__(self,x,y):
+					self.x = x
+					self.y = y
+
+				def area(self):
+					return self.x*self.y
+
+			class Area2(CalculateArea):
+				def __init__(self, r):
+					self.r = r
+					super().__init__(r,r)
+
+				def area(self):
+					print(f"Area : {3.24*super().area()}")
+
+			a = Area2(3)
+			a.area()
+
+			Area : 29.160000000000004
+			[Finished in 518ms]
+
+	N) Operator Overloading :
+		1) There are various magic methods used for operator overloading. See official documentation of python for  more methods.
+			eg:
+			class Add:
+				def __init__(self,x,y):
+					self.x = x
+					self.y = y
+
+				def display(self):
+					print(f"-----> {self.x} + {self.y}i")
+
+				def __add__(self,a2):
+					return Add(a2.x+self.x , a2.y+self.y)
+
+			a1 = Add(2,3)
+			a2 = Add(3,2)
+			ans = a1+a2
+			ans.display()
+
+			-----> 5 + 5i
+			[Finished in 310ms]
+
+		2)  Operator	   Magic Method
+			+	__add__(self, other)
+			–	__sub__(self, other)
+			*	__mul__(self, other)
+			/	__truediv__(self, other)
+			//	__floordiv__(self, other)
+			%	__mod__(self, other)
+			**	__pow__(self, other)
+			>>	__rshift__(self, other)
+			<<	__lshift__(self, other)
+			&	__and__(self, other)
+			|	__or__(self, other)
+			^	__xor__(self, other)
+
+	O) Single inheritance :
+		1) In single inheritance, child class is derived from single class.
+        	   	eg. class child(parent):
+	   
+    	   Multiple inheritance :
+		1) Child class is derived from multiple parent class.
+         		 eg. class child(parent1, parent2, parent3)   #----> this sequence of defining parent class matters in finding a method by interpreter.
+			 eg. print(child.mro())
+
+	   Multi-level inheritance :
+		1) Child class will be parent class for next derived class and so on forming levels. Last class will be superiror class containing all properties other level classes.
+			eg. class Class1: 
+				pass
+			    class Class2(Class1): 
+				pass
+			    class Class3(Class2): 
+				pass
+			    class Class4(Class3): 
+				pass
+	
+	   Hybrid inheritance : When more than one inheritance types are used then this type of inheritance is called as hybrid inheritance.
+
+	   Hierarchial inheritance : When multiple derived classes are derived from single base class.
+
+	
+pyPDF module : 
+	1) Used to perform operations like merge, split, delete pages, etc. from pdf.
+
+Time module :
+	1) It provides set of functions to work with time related functions like timekeeping, formatting and time conversions. eg. time.time() 
+	2) time.sleep(NumberOfSeconds) ---> Delays time
+	   time.localtime() ------> Gives the time according to system program is executing.
+	   time.strftime("%Y-%m-%d  %H:%M:%S", localtime())  ----> Returns time and date in string format
+
+
+		import time
+
+		def useFor():
+			for i in range(100):
+				print(i)
+
+		def useWhile():
+			i = 0
+
+			while(i<100):
+				print(i)
+				i += 1
+
+		before1 = time.time()
+		useFor()
+		t1 = time.time() - before1
+
+		before2 = time.time()
+		useWhile()
+		t2 = time.time() - before2
+
+		print(f"Time taken by for loop : {t1}")
+		time.sleep(3)
+		print(f"Time taken by while loop : {t2}")
+
+		time.sleep(3)
+		t = time.localtime()
+		currentTime = time.strftime("%Y-%m-%d  %H:%M:%S",t)
+		print(currentTime)
+
+	       OUTPUT:
+		       0
+			1
+			2
+			3
+			4
+			0
+			1
+			2
+			3
+			4
+			Time taken by for loop : 0.0010006427764892578
+			Time taken by while loop : 0.0
+			2023-03-19  11:13:46
+			[Finished in 6.5s]
+
+Command Line Utility or argparse module :
+	1) Command line utilities are the programs that can be run from the terminal or interface.
+	2) These are the essential part of developers workflow.
+
+Walrus Operator:
+	1) Walrus operator allow programmer to perform assignment in expression.
+		eg.
+		Happy = False
+		person = "Robo"
+
+		if(person := "Amir"):
+			Happy = True
+			print(f"Happy is {Happy}")
+
+		OUTPUT:
+		Happy is True
+		[Finished in 239ms]
+
+
+
+		>>> foods = list()
+		>>>
+		>>> while ( (food := input("Enter food you want to add : ")) != "quit") :
+		...     foods.append(food)
+
+		OUTPUT :
+		Enter food you want to add : banana
+		Enter food you want to add : apple
+		Enter food you want to add : seb
+		Enter food you want to add : roti
+		Enter food you want to add : chaval
+		Enter food you want to add : dal
+		Enter food you want to add : dal makhni
+		Enter food you want to add : chicken dum biryani
+		Enter food you want to add : paneer
+		Enter food you want to add : samosa
+		Enter food you want to add : jalebi
+		Enter food you want to add : peda
+		Enter food you want to add : gulabjamun
+		Enter food you want to add : dahi vada ya bada so much confusion
+		Enter food you want to add : same confusion for pav vada ya vada pav
+		Enter food you want to add : quit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Projects based on Machine learning :
+Smart Traffic Management System: Use computer vision and machine learning to optimize traffic signals based on real-time traffic conditions and reduce traffic congestion.
+
+Sentiment Analysis of Social Media Data: Analyze social media data to determine the sentiment of users towards a particular topic, brand or product.
+
+E-commerce Website with Recommendation System: Create an e-commerce website with a personalized product recommendation system that suggests products to users based on their browsing and purchase history.
+
+Automated Attendance System: Use face recognition technology to automate attendance taking in classrooms or workplaces.
+
+Neural Machine Translation: Build a machine translation model using neural networks that can translate text from one language to another.
+
+Stock Price Prediction: Use machine learning algorithms to predict stock prices based on historical data and other variables.
+
+Fraud Detection System: Use machine learning algorithms to detect fraudulent transactions in financial systems.
+
+Autonomous Robot Navigation: Build a robot that can autonomously navigate through a maze using computer vision and machine learning techniques.
+
+Voice Assistant with Natural Language Processing: Build a voice assistant like Siri or Alexa that can understand and respond to natural language commands.
+
+Human Emotion Recognition: Use computer vision and machine learning to detect human emotions from facial expressions
